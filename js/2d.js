@@ -6,7 +6,7 @@ var myCanvas = document.querySelector("#canvas");
 var height = myCanvas.height;
 var width = myCanvas.width;
 var xSpeed = 0;
-var ySpeed = 3;
+var ySpeed = 4;
   // paddle size
 var paddleWidth = 100;
 var paddleHeight = 5;
@@ -201,10 +201,8 @@ function showFireRocket(ctx){
   ctx.fill()
 }
 function updateBall(){
-  // move based on speed
-  // ballX += ballXSpeed;
   ballY += ballYSpeed;
-  if (ballY < 100) {
+  if (ballY < 300) {
     ballYSpeed *= -1;
     showFire=false
   }
