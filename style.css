@@ -3,11 +3,13 @@ body {
 }
 canvas {
   background-color: black;
-  border: 1px solid black;
+  border: 1px solid #eee;
   margin: auto;
   display: block;
   width: 800px;
-  height: 800px;
+  height: 700px;
+  margin-top: 10px;
+
 }
 
 .btn-group button {

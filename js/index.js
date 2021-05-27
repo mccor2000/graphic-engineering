@@ -5,7 +5,11 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 let theta = 0;
+const render2D = () => {
+  ctx.clearRect(0, 0, W, H);
 
+  draw2D(ctx);
+};
 const renderCube = () => {
   ctx.clearRect(0, 0, W, H);
   theta += 0.01;
@@ -30,9 +34,16 @@ const renderTesseract = () => {
   requestAnimationFrame(renderTesseract);
 };
 
+const Render2DButton = document.getElementById('2d-btn');
 const RenderCubeButton = document.getElementById('cube-btn');
 const RenderSphereButton = document.getElementById('sphere-btn');
 const RenderTesseractButton = document.getElementById('tesseract-btn');
+
+
+Render2DButton.onclick = () => {
+let theta = 0;
+  render2D();
+};
 
 RenderCubeButton.onclick = () => {
   theta = 0;
