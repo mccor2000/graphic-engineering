@@ -29,11 +29,27 @@ var rightPaddleY = (height / 2) - (paddleHeight / 2);
 //track the size of the play area
 
 //reach out to grab the canvas
+let mousepointX =0 
+let mousepointY =0 
 
+
+let showFire = false
+myCanvas.addEventListener('mousemove', event =>
+{
+    let bound = myCanvas.getBoundingClientRect();
+    let x = event.clientX - bound.left - myCanvas.clientLeft;
+    let y = event.clientY - bound.top - myCanvas.clientTop;
+    mousepointX=x;
+    mousepointY=y
+  });
 // draw paddles and ball to start
+showCoordinates()
+
 drawLand()
 drawFlag()
 drawText()
+if(showFire)
+showFireRocket()
 drawRocket(ballX,ballY,ballsize);
 //main animation loop & controls\\
 window.requestAnimationFrame(animate); // flip one frame
@@ -41,10 +57,14 @@ window.requestAnimationFrame(animate); // flip one frame
 function animate(){
   ctx.clearRect(0, 0, width, height);
   // draw all items
+  showCoordinates()
   drawLand()
   drawFlag()
   drawText()
+  if(showFire)
+  showFireRocket()
   drawRocket(ballX,ballY,ballsize);
+
   // update items
   updateBall();
 
@@ -54,12 +74,14 @@ function animate(){
 
 //helper functions\\
 
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+function showCoordinates(){
+  ctx.font = "12px Arial";
+  ctx.fillStyle="#222"
+  ctx.fillText(`Toạ độ X : ${mousepointX}`, width-100, 15);
+  ctx.fillText(`Toạ độ Y : ${mousepointY}`, width-100, 30);
 }
+
+
 
 function drawFlag(){
   ctx.fillStyle='#333'
@@ -90,16 +112,20 @@ function drawFlag(){
 
 function drawLand(){
   ctx.fillStyle = "#BB5335";
+  // stick 
   ctx.fillRect(0,height-100, width/2,1)
 
-
+  // canvas flag
   ctx.fillRect(width/2, height-129,1,30)
 
+  // star
   ctx.beginPath();
   ctx.moveTo(width/2, height-129)
   ctx.lineTo(width/2 +30, height-129+30)
   ctx.stroke()
   ctx.strokeStyle = "#BB5335"
+  ctx.fillStyle = "#BB5335";
+
   ctx.fill();
   
   ctx.beginPath();
@@ -107,6 +133,8 @@ function drawLand(){
   ctx.lineTo(width/2 +60, height-150-60)
   ctx.stroke()
   ctx.strokeStyle = "#BB5335"
+  ctx.fillStyle = "#BB5335";
+
   ctx.fill();
 
   ctx.beginPath();
@@ -114,6 +142,8 @@ function drawLand(){
   ctx.lineTo(width/2 +60, height-150-60)
   ctx.stroke()
   ctx.strokeStyle = "#BB5335"
+  ctx.fillStyle = "#BB5335";
+
   ctx.fill();
 
   ctx.beginPath();
@@ -121,6 +151,7 @@ function drawLand(){
   ctx.lineTo(width/2 +160, height-250)
   ctx.stroke()
   ctx.strokeStyle = "#BB5335"
+  ctx.fillStyle = "#BB5335";
   ctx.fill();
   ctx.fillRect(width/2 +160,height-250,300,1)
 
@@ -132,6 +163,8 @@ function drawText(){
   ctx.fillStyle="#222"
   ctx.fillText("Vietnam to the Mars", 10, 20);
 }
+
+
 function drawRocket(x,y,size){
   ctx.fillStyle = "#eee";
   var path = new Path2D;
@@ -140,6 +173,7 @@ function drawRocket(x,y,size){
   var endAngle = 1 * Math.PI;// 360 degrees
   var isAnticlockwise = false;// don't go anti clockwise
   path.arc(x, y, rad, startAngle, endAngle, isAnticlockwise);
+  ctx.fill(path)
   // draw top rocket
   ctx.beginPath();
   ctx.moveTo(40+ballX-40, 65+ballY-90);
@@ -147,15 +181,21 @@ function drawRocket(x,y,size){
   ctx.lineTo(15+ballX-40, 90+ballY-90);
   ctx.fill();
   // draw foot rocket
-  
   ctx.rect(ballX-11, ballY, 22, 50);
-
-
   ctx.rect(ballX-20, ballY+50, 40, 5);
-
-
   ctx.fill();
-  ctx.fill(path)
+  // draw fire 
+
+  
+}
+function showFireRocket(){
+  ctx.strokeStyle="red"
+  ctx.fillStyle="red"
+  ctx.beginPath()
+  ctx.moveTo(40+ballX-30, 10+ballY+40)
+  ctx.lineTo(40+ballX-50, 10+ballY+40)
+  ctx.lineTo(40+ballX-40, 10+ballY+80)
+  ctx.fill()
 }
 function updateBall(){
   // move based on speed
@@ -163,9 +203,12 @@ function updateBall(){
   ballY += ballYSpeed;
   if (ballY < 100) {
     ballYSpeed *= -1;
+    showFire=false
   }
   else if(ballY > height-155){
     ballYSpeed *= -1;
+    showFire=true
+
   }
 }
 
