@@ -44,6 +44,7 @@ myCanvas.addEventListener('mousemove', event =>
 // draw paddles and ball to start
 
 function draw2D(ctx){
+  drawMoon(ctx,width-150,height/2,ballsize)
   showCoordinates(ctx)
   drawLand(ctx)
   drawFlag(ctx)
@@ -57,6 +58,7 @@ function draw2D(ctx){
   function animate(){
       ctx.clearRect(0, 0, width, height);
       // draw all items
+      drawMoon(ctx,width-150,height/2,ballsize)
       showCoordinates(ctx)
       drawLand(ctx)
       drawFlag(ctx)
@@ -76,7 +78,48 @@ function draw2D(ctx){
 
 
 //helper functions\\
+let sizeMoon = 100
+function drawMoon(ctx,x,y){
 
+  var path = new Path2D;
+  var rad = sizeMoon;
+  var startAngle = 0;
+  var endAngle = 3.6 * Math.PI;// 360 degrees
+  var isAnticlockwise = false;// don't go anti clockwise
+  path.arc(x-150, y-250, rad, startAngle, endAngle, isAnticlockwise);
+  ctx.fillStyle = "#999";
+  ctx.fill(path)
+
+  var path = new Path2D;
+  var rad = sizeMoon/7;
+  var startAngle = 0;
+  var endAngle = 3.6 * Math.PI;// 360 degrees
+  var isAnticlockwise = false;// don't go anti clockwise
+  path.arc(x-100, y-250, rad, startAngle, endAngle, isAnticlockwise);
+  ctx.fillStyle = "#888";
+  ctx.fill(path)
+
+  var path = new Path2D;
+  var rad = sizeMoon/8;
+  var startAngle = 0;
+  var endAngle = 3.6 * Math.PI;// 360 degrees
+  var isAnticlockwise = false;// don't go anti clockwise
+  path.arc(x-160, y-250, rad, startAngle, endAngle, isAnticlockwise);
+  ctx.fillStyle = "#888";
+  ctx.fill(path)
+
+
+  var path = new Path2D;
+  var rad = sizeMoon/9;
+  var startAngle = 0;
+  var endAngle = 3.6 * Math.PI;// 360 degrees
+  var isAnticlockwise = false;// don't go anti clockwise
+  path.arc(x-190, y-280, rad, startAngle, endAngle, isAnticlockwise);
+  ctx.fillStyle = "#888";
+  ctx.fill(path)
+
+
+}
 function showCoordinates(ctx){
   ctx.font = "12px Arial";
   ctx.fillStyle="#eee"
@@ -201,6 +244,7 @@ function showFireRocket(ctx){
   ctx.fill()
 }
 function updateBall(){
+
   ballY += ballYSpeed;
   if (ballY < 300) {
     ballYSpeed *= -1;
