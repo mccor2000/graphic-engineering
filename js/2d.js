@@ -84,7 +84,7 @@ function drawMoon(ctx,x,y){
   var path = new Path2D;
   var rad = sizeMoon;
   var startAngle = 0;
-  var endAngle = 3.6 * Math.PI;// 360 degrees
+  var endAngle = 2 * Math.PI;// 360 degrees
   var isAnticlockwise = false;// don't go anti clockwise
   path.arc(x-150, y-250, rad, startAngle, endAngle, isAnticlockwise);
   ctx.fillStyle = "#999";
@@ -115,6 +115,15 @@ function drawMoon(ctx,x,y){
   var endAngle = 3.6 * Math.PI;// 360 degrees
   var isAnticlockwise = false;// don't go anti clockwise
   path.arc(x-190, y-280, rad, startAngle, endAngle, isAnticlockwise);
+  ctx.fillStyle = "#888";
+  ctx.fill(path)
+
+  var path = new Path2D;
+  var rad = sizeMoon/10;
+  var startAngle = 0;
+  var endAngle = 1.2 * Math.PI;// 360 degrees
+  var isAnticlockwise = false;// don't go anti clockwise
+  path.arc(x-200, y-200, rad, startAngle, endAngle, isAnticlockwise);
   ctx.fillStyle = "#888";
   ctx.fill(path)
 
@@ -222,13 +231,13 @@ function drawRocket(ctx,x,y,size){
   ctx.fill(path)
   // draw top rocket
   ctx.beginPath();
-  ctx.moveTo(40+ballX-40, 65+ballY-90);
-  ctx.lineTo(65+ballX-40, 90+ballY-90);
-  ctx.lineTo(15+ballX-40, 90+ballY-90);
+  ctx.moveTo(40+x-40, 65+y-90);
+  ctx.lineTo(65+x-40, 90+y-90);
+  ctx.lineTo(15+x-40, 90+y-90);
   ctx.fill();
   // draw foot rocket
-  ctx.rect(ballX-11, ballY, 22, 50);
-  ctx.rect(ballX-20, ballY+50, 40, 5);
+  ctx.rect(x-11, y, 22, 50);
+  ctx.rect(x-20, y+50, 40, 5);
   ctx.fill();
   // draw fire 
 
